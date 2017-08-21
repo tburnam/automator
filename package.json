@@ -1,0 +1,20 @@
+{
+  "name": "flow2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"echo \"Error: There is no start script. Use `run record` or `run play <jsonfile>`",
+    "record": "node record.js",
+    "play": "node play.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "death": "^1.1.0",
+    "gkm": "^0.1.0",
+    "jsonfile": "^3.0.1",
+    "robotjs": "^0.4.7"
+  }
+}
