@@ -17,7 +17,6 @@ gkm.events.on('key.*', (data) => {
 
 // CLICK
 gkm.events.on('mouse.clicked', function(data) {
-  console.log("CLICK")
   var mouseData = {};
   mouseData.type = "click";
   movements.events.push(mouseData)
@@ -25,7 +24,6 @@ gkm.events.on('mouse.clicked', function(data) {
 
 // MOUSE MOVEMENT
 gkm.events.on('mouse.moved', function(data) {
-  console.log("MOVE")
   var mouseData = {};
 
   var position = {};
