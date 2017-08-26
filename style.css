@@ -1,0 +1,72 @@
+@font-face {
+font-family: 'Planet Kosmos';
+font-style: normal;
+font-weight: normal;
+src: local('Planet Kosmos'), url('./fonts/PLANK___.woff') format('woff');
+}
+
+* {
+  overflow: hidden;
+  -webkit-app-region: drag;
+  font-family: 'Planet Kosmos';
+}
+
+#root {
+
+}
+
+#main {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
+#record {
+  height: 40px;
+  width: 40px;
+  margin: '0 auto';
+  padding-top: 50px;
+}
+
+#buttons {
+  padding-top: 20px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+#startButton {
+  margin-right: 150px;
+  font-size: 12px;
+}
+
+#finishButton {
+  margin-left: 150px;
+  font-size: 12px;
+}
+
+#titleLabel {
+  color: white;
+  font-size: 15px;
+  letter-spacing: 1.75px;
+}
+
+#titleArea {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#bottomIcons {
+  position: absolute;
+  bottom: 0;
+}
+
+#fileIcon {
+  padding-right: 65px;
+}
+
+#githubIcon {
+  padding-left: 65px;
+}

@@ -1,6 +1,4 @@
 var robot = require("robotjs");
-var jsonfile = require('jsonfile')
-var file = './tmp/data.json'
 
 // Mouse movement handler
 let handleMouse = (eventItem) => {
@@ -14,22 +12,21 @@ let handleMouse = (eventItem) => {
   }
 }
 
-// READ IN DATA
-jsonfile.readFile(file, function(err, obj) {
-  for (var item in obj.events) {
-    let eventItem = obj.events[item];
-
-    switch (eventItem.type) {
-      case 'mouse':
-        handleMouse(eventItem);
-        break;
-      case 'click':
-        robot.mouseClick();
-        break;
-      case 'key':
-        // TODO: Better support, needs to handle modifiers/special keys
-        robot.typeString(eventItem.data[0]);
-        break;
-    }
+let handleEvent = (event) => {
+  switch (event.type) {
+    case 'mouse':
+      handleMouse(event);
+      break;
+    case 'click':
+      robot.mouseClick();
+      break;
+    case 'key':
+      // TODO: Better support, needs to handle modifiers/special keys
+      robot.typeString(event.data[0]);
+      break;
   }
-})
+}
+
+exports.util = {
+  process: handleEvent,
+}
