@@ -1,10 +1,10 @@
-import { Layers, Github, FilePlus, Play } from 'react-feather';
+import { Layers, Github, FilePlus, Play } from 'react-feather'; // eslint-disable-line
 import React from 'react';
 import ReactDOM from 'react-dom';
-import record from './record.svg';
-import recording from './recording.svg';
+import record from '../resources/Images/record.svg';
+import recording from '../resources/Images/recording.svg';
 
-const electron = window.require('electron');
+const electron = window.require('electron'); // eslint-disable-line
 const ipcRenderer = electron.ipcRenderer;
 const Spinner = require('react-spinkit');
 
@@ -100,7 +100,7 @@ class Automator extends React.Component {
 }
 
 
-ReactDOM.render(<Automator />, document.getElementById('root'));
+ReactDOM.render(<Automator />, document.getElementById('root')); // eslint-disable-line
 
 
 // <div id='buttons'>
