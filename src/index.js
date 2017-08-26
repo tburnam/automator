@@ -1,99 +1,106 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import icon from './icon.svg'
-import record from './record.svg'
-import recording from './recording.svg'
-import { Layers, Github, FilePlus } from 'react-feather';
+import { Layers, Github, FilePlus, Play } from 'react-feather';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import record from './record.svg';
+import recording from './recording.svg';
+
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
-const remote = electron.remote;
 const Spinner = require('react-spinkit');
 
 class Automator extends React.Component {
   constructor(props) {
-   super(props);
+    super(props);
 
-  this.state = {
-    isRecording: false,
-    cache: {},
-  };
+    this.state = {
+      isRecording: false,
+      cache: {},
+      hasData: false,
+    };
 
-  this.toggleRecording = this.toggleRecording.bind(this);
-  this.openGithub = this.openGithub.bind(this);
+    this.toggleRecording = this.toggleRecording.bind(this);
+    this.openGithub = this.openGithub.bind(this);
+    this.startPlaying = this.startPlaying.bind(this);
 
-  ipcRenderer.on('cacheRecording', (event, arg) => {
-    this.setState({
-      cache: arg,
+    ipcRenderer.on('cacheRecording', (event, arg) => {
+      this.setState({
+        cache: arg,
+        hasData: true,
+      });
     });
-    console.log(arg);
+  }
+
+  startPlaying() {
     ipcRenderer.send('beginPlaying', this.state.cache);
-    console.log('SENT');
-  });
+  }
 
- }
+  toggleRecording(event) {
+    this.setState({
+      isRecording: !this.state.isRecording,
+    });
 
- toggleRecording(event) {
-   this.setState({
-     isRecording: !this.state.isRecording,
-   })
+    if (!this.state.isRecording) {
+      ipcRenderer.send('beginRecording', {});
+    } else {
+      ipcRenderer.send('stopRecording', {});
+    }
+  }
 
-   if (!this.state.isRecording) {
-     ipcRenderer.send('beginRecording', {});
-   }
-   else {
-     ipcRenderer.send('stopRecording', {});
-   }
- }
+  openGithub() {
+    window.require('electron').shell.openExternal('https://github.com/tburnam/uitestautomator');
+  }
 
- openGithub() {
-   window.require('electron').shell.openExternal("https://www.github.com/tburnam");
- }
+  loadPlayButton() {
+    if (this.state.hasData) {
+      return (
+        <div>
+          <Play id="playButton" color="rgb(243, 255, 11)" size={22} onClick={this.startPlaying} />
+        </div>
+      );
+    } else {
+      return (
+        <div />
+      );
+    }
+  }
 
- loadRecordButton() {
-   if (this.state.isRecording) {
-     return(
-       <span id="recordingSpan">
-         <img id="record" src={recording} alt="" onClick={this.toggleRecording}/>
-         <Spinner name="line-scale-pulse-out-rapid" color="grey" fadeIn='quarter'/>
-       </span>
-     )
-   }
-   else {
-     return(
-       <img id="record" src={record} alt="" onClick={this.toggleRecording}/>
-     )
-   }
- }
+  loadRecordButton() {
+    if (this.state.isRecording) {
+      return (
+        <span id="recordingSpan">
+          <img id="record" src={recording} alt="" onClick={this.toggleRecording} />
+          <Spinner name="line-scale-pulse-out-rapid" color="grey" fadeIn="quarter" />
+        </span>
+      );
+    } else {
+      return (
+        <span id="recordingSpan">
+          <img id="record" src={record} alt="" onClick={this.toggleRecording} />
+          {this.loadPlayButton()}
+        </span>
+      );
+    }
+  }
 
- render() {
-   const style = {
-     fontFamily:"-apple-system, 'Helvetica Neue', sans-serif",
-     fontWeight: 900,
-     fontSize: 40,
-     letterSpacing:'-.04em'
-   }
-
-   return (
-     <div id='main'>
-       <div id='titleArea'>
-         <Layers color="white" size={24} />
-         <span id="titleLabel">automator</span>
-       </div>
-       {this.loadRecordButton()}
-       <div id="bottomIcons">
-         <FilePlus id="fileIcon" color="white" size={16} />
-         <Github id="githubIcon" color="white" size={16} onClick={this.openGithub}/>
-       </div>
-     </div>
-   )
- }
+  render() {
+    return (
+      <div id="main">
+        <div id="titleArea">
+          <Layers color="white" size={24} />
+          <span id="titleLabel">automator</span>
+        </div>
+        {this.loadRecordButton()}
+        <div id="bottomIcons">
+          <FilePlus id="fileIcon" color="white" size={16} />
+          <Github id="githubIcon" color="white" size={16} onClick={this.openGithub} />
+        </div>
+      </div>
+    );
+  }
 }
 
 
-
-
-
-ReactDOM.render(<Automator />,  document.getElementById('root'));
+ReactDOM.render(<Automator />, document.getElementById('root'));
 
 
 // <div id='buttons'>

@@ -1,18 +1,37 @@
-var robot = require("robotjs");
+const robot = require('robotjs');
 
 // Mouse movement handler
-let handleMouse = (eventItem) => {
-  var x = eventItem.data.x;
-  var y = eventItem.data.y;
+const handleMouse = (eventItem) => {
+  const x = eventItem.data.x;
+  const y = eventItem.data.y;
 
-  var screenSize = robot.getScreenSize();
+  const screenSize = robot.getScreenSize();
 
   if (x > 0 && x < screenSize.width && y > 0 && y < screenSize.height) {
     robot.moveMouse(x, y);
   }
-}
+};
 
-let handleEvent = (event) => {
+const keyMapping = {
+  'Left Meta': 'command',
+  'Right Meta': 'command',
+  Comma: ',',
+};
+
+const getKey = (key) => {
+  if (key in keyMapping) {
+    return keyMapping[key];
+  } else {
+    return key.toLowerCase();
+  }
+};
+
+const handleType = (event) => {
+  console.log(event.data[0]);
+  robot.keyTap(getKey(event.data[0]));
+};
+
+const handleEvent = (event) => {
   switch (event.type) {
     case 'mouse':
       handleMouse(event);
@@ -22,11 +41,14 @@ let handleEvent = (event) => {
       break;
     case 'key':
       // TODO: Better support, needs to handle modifiers/special keys
-      robot.typeString(event.data[0]);
+      handleType(event);
+      break;
+    default:
+      // Do something
       break;
   }
-}
+};
 
 exports.util = {
   process: handleEvent,
-}
+};

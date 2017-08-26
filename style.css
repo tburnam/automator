@@ -11,10 +11,6 @@ src: local('Planet Kosmos'), url('./fonts/PLANK___.woff') format('woff');
   font-family: 'Planet Kosmos';
 }
 
-#root {
-
-}
-
 #main {
   padding-top: 20px;
   display: flex;
@@ -69,4 +65,9 @@ src: local('Planet Kosmos'), url('./fonts/PLANK___.woff') format('woff');
 
 #githubIcon {
   padding-left: 65px;
+}
+
+#playButton {
+  padding-left: 10.5px;
+  padding-top: 18px;
 }
