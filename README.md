@@ -23,7 +23,7 @@ npm install
 # Features
 - Automate mouse movement, mouse clicks, and text input.
 - Support for mofifier keys, dragging, and gestures coming soon.
-- Lightweight UI coming soon. (25 AUG - Basic UI added)
+- ~~Lightweight UI coming soon.~~ (25 AUG - Basic UI added)
 - Contributors welcome.
 
 # Update log
