@@ -1,7 +1,7 @@
 <h1 align="center">Automator</h1>
 <h4 align="center">UI Automator for macOS</h4>
 <p align="center"> 
-<img src="https://github.com/tburnam/pak/blob/master/usage.gif">
+<img src="https://github.com/tburnam/automator/blob/master/resources/Images/usage.gif">
 </p>
 <br>
 
